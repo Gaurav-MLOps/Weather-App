@@ -1,4 +1,4 @@
-# 🌤 Simple Weather App (PyQt5)
+# Simple Weather App (PyQt5)
 
 A simple Python GUI application that checks the current weather of any city using the **OpenWeatherMap API**.  
 Built with **PyQt5** for the interface, **Requests** for API calls, and **NumPy** for temperature conversion.  
@@ -6,7 +6,7 @@ This project is part of my journey into building Python applications that combin
 
 ---
 
-## 🚀 Features
+## Features
 - Search weather by **city name**
 - Displays temperature in **Celsius & Fahrenheit**
 - Shows weather condition icons (☀️, 🌧, ❄️, 🌩, etc.)
@@ -15,7 +15,7 @@ This project is part of my journey into building Python applications that combin
 
 ---
 
-## 📦 Installation
+## Installation
 Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/<Gaurav-MLOps>/<repo-name>.git
