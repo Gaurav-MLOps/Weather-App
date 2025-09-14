@@ -6,8 +6,6 @@ from PyQt5.QtCore import Qt
 from API import api_key_real
 
 
-
-
 class SimpleWeather(QWidget):
     def __init__(self):
         super().__init__()
@@ -35,6 +33,8 @@ class SimpleWeather(QWidget):
         for widget in [self.city_text, self.city_input, self.temp_display, self.icon_display, self.info_display]:
             widget.setAlignment(Qt.AlignCenter)
 
+        self.info_display.setWordWrap(True)
+
         self.setStyleSheet("""
             QLabel, QPushButton {
                 font-family: Calibri;
@@ -55,6 +55,7 @@ class SimpleWeather(QWidget):
             }
             QLabel#icon_display {
                 font-size: 90px;
+                font-family: "Segoe UI Emoji";
             }
             QLabel#info_display {
                 font-size: 40px;
@@ -75,18 +76,27 @@ class SimpleWeather(QWidget):
 
         try:
             r = requests.get(url)
-            r.raise_for_status()
             weather = r.json()
 
-            if weather["cod"] == 200:
+            if weather.get("cod") == 200:
                 self.show_weather(weather)
+            else:
+                self.show_error(weather.get("message", "Unknown error"))
         except Exception as e:
             self.show_error(str(e))
 
     def show_error(self, message):
         self.temp_display.setText("Error")
         self.icon_display.setText("⚠️")
-        self.info_display.setText(message)
+
+        if "city not found" in message.lower():
+            msg = "City not found 🚫"
+        elif "500" in message or "internal" in message.lower():
+            msg = "Server error ⚡"
+        else:
+            msg = "Something went wrong ❌"
+
+        self.info_display.setText(msg)
 
     def show_weather(self, data):
         kelvin = data["main"]["temp"]
@@ -103,31 +113,33 @@ class SimpleWeather(QWidget):
 
     @staticmethod
     def pick_icon(code):
-        if 200 <= code <= 232: 
-            return "⛈️" 
-        elif 300 <= code <= 321: 
-            return "🌩️" 
+        if 200 <= code <= 232:
+            return "⛈️"
+        elif 300 <= code <= 321:
+            return "🌩️"
         elif 500 <= code <= 531:
-             return "🌧️"
-        elif 600 <= code <= 622: 
-            return "❄️" 
-        elif 701 <= code <= 741: 
-            return "🌫️" 
-        elif code == 762: 
-            return "🌋" 
-        elif code == 771: 
-            return "💨" 
-        elif code == 781: 
-            return "🌪️" 
-        elif code == 800: 
-            return "☀️" 
-        elif 801 <= code <= 804: 
-            return "☁️" 
-        else: return ""
+            return "🌧️"
+        elif 600 <= code <= 622:
+            return "❄️"
+        elif 701 <= code <= 741:
+            return "🌫️"
+        elif code == 762:
+            return "🌋"
+        elif code == 771:
+            return "💨"
+        elif code == 781:
+            return "🌪️"
+        elif code == 800:
+            return "☀️"
+        elif 801 <= code <= 804:
+            return "☁️"
+        else:
+            return ""
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = SimpleWeather()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_() or 0)
+
