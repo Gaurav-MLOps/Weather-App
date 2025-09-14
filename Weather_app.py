@@ -3,6 +3,9 @@ import requests
 import numpy as np
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
 from PyQt5.QtCore import Qt
+from API import api_key_real
+
+
 
 
 class SimpleWeather(QWidget):
@@ -66,7 +69,7 @@ class SimpleWeather(QWidget):
         self.check_button.clicked.connect(self.get_weather)
 
     def get_weather(self):
-        api_key = "be2941edd2ba73527172508ec6a8f633"
+        api_key = api_key_real
         city = self.city_input.text().strip()
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
 

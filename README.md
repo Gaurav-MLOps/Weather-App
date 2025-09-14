@@ -19,5 +19,5 @@ This project is part of my journey into building Python applications that combin
 Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/<Gaurav-MLOps>/<repo-name>.git
-cd <repo-name>
+cd Weather-App
 pip install pyqt5 requests numpy
