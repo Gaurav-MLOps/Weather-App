@@ -18,6 +18,6 @@ This project is part of my journey into building Python applications that combin
 ## Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/<Gaurav-MLOps>/<repo-name>.git
+git clone https://github.com/Gaurav-MLOps/Weather-App.git
 cd Weather-App
 pip install pyqt5 requests numpy
