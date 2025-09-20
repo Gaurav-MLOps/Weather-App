@@ -36,31 +36,98 @@ class SimpleWeather(QWidget):
         self.info_display.setWordWrap(True)
 
         self.setStyleSheet("""
+            QWidget {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
+                    stop:0 #6B7280, stop:0.5 #3B82F6, stop:1 #1E3A8A);
+                color: #F3F4F6;
+                border-radius: 15px;
+                padding: 25px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            }
             QLabel, QPushButton {
-                font-family: Calibri;
+                font-family: 'Poppins', 'Segoe UI', Calibri, sans-serif;
             }
             QLabel#city_text {
-                font-size: 30px;
+                font-size: 36px;
+                font-weight: 700;
                 font-style: italic;
+                color: #E0E7FF;
+                margin-bottom: 15px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+                letter-spacing: 1px;
             }
             QLineEdit {
                 font-size: 28px;
+                padding: 12px 15px;
+                border: 2px solid rgba(147, 197, 253, 0.5);
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.15);
+                color: #FFFFFF;
+                margin: 15px 30px;
+                transition: all 0.3s ease;
+            }
+            QLineEdit:focus {
+                border-color: #93C5FD;
+                background-color: rgba(255, 255, 255, 0.25);
+                box-shadow: 0 0 12px rgba(147, 197, 253, 0.7);
+                transform: scale(1.02);
             }
             QPushButton {
-                font-size: 25px;
+                font-size: 26px;
                 font-weight: bold;
+                padding: 15px;
+                border-radius: 12px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
+                    stop:0 #60A5FA, stop:1 #2563EB);
+                color: #FFFFFF;
+                border: none;
+                margin: 15px 30px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            }
+            QPushButton:hover {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
+                    stop:0 #93C5FD, stop:1 #3B82F6);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+            }
+            QPushButton:pressed {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
+                    stop:0 #2563EB, stop:1 #1E3A8A);
+                transform: translateY(1px);
+                box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
             }
             QLabel#temp_display {
-                font-size: 70px;
+                font-size: 80px;
+                font-weight: 800;
+                color: #DBEAFE;
+                margin: 20px 0;
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+                letter-spacing: 1.5px;
             }
             QLabel#icon_display {
-                font-size: 90px;
+                font-size: 110px;
                 font-family: "Segoe UI Emoji";
+                margin: 15px 0;
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+                transform: scale(1);
+                transition: transform 0.3s ease;
+            }
+            QLabel#icon_display:hover {
+                transform: scale(1.1);
             }
             QLabel#info_display {
-                font-size: 40px;
+                font-size: 38px;
+                color: #E0E7FF;
+                margin: 15px 30px;
+                padding: 12px;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
             }
         """)
+
 
         self.city_text.setObjectName("city_text")
         self.temp_display.setObjectName("temp_display")
