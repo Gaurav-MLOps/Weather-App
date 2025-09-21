@@ -37,94 +37,108 @@ class SimpleWeather(QWidget):
 
         self.setStyleSheet("""
             QWidget {
-                background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
-                    stop:0 #6B7280, stop:0.5 #3B82F6, stop:1 #1E3A8A);
-                color: #F3F4F6;
-                border-radius: 15px;
-                padding: 10px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
+                    stop:0 #1E3A8A, stop:0.3 #3B82F6, stop:0.6 #60A5FA, stop:1 #93C5FD);
+                color: #FFFFFF;
+                border-radius: 20px;
+                padding: 15px;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(147, 197, 253, 0.3);
             }
-            QLabel, QPushButton {
-                font-family: 'Poppins', 'Segoe UI', Calibri, sans-serif;
+            QLabel, QPushButton, QLineEdit {
+                font-family: 'Poppins', 'Segoe UI', 'Helvetica Neue', sans-serif;
             }
             QLabel#city_text {
-                font-size: 28px;
-                font-weight: 700;
+                font-size: 32px;
+                font-weight: 800;
                 font-style: italic;
-                color: #E0E7FF;
-                margin-bottom: 8px;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-                letter-spacing: 0.5px;
+                color: #DBEAFE;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+                letter-spacing: 1px;
+                transition: all 0.4s ease;
+            }
+            QLabel#city_text:hover {
+                transform: scale(1.05);
+                color: #EFF6FF;
             }
             QLineEdit {
-                font-size: 22px;
-                padding: 8px 10px;
-                border: 2px solid rgba(147, 197, 253, 0.5);
-                border-radius: 10px;
-                background-color: rgba(255, 255, 255, 0.15);
+                font-size: 24px;
+                padding: 12px 15px;
+                border: 2px solid rgba(96, 165, 250, 0.6);
+                border-radius: 15px;
+                background-color: rgba(255, 255, 255, 0.2);
                 color: #FFFFFF;
-                margin: 8px 15px;
-                transition: all 0.3s ease;
+                margin: 10px 20px;
+                transition: all 0.4s ease;
             }
             QLineEdit:focus {
-                border-color: #93C5FD;
-                background-color: rgba(255, 255, 255, 0.25);
-                box-shadow: 0 0 10px rgba(147, 197, 253, 0.6);
-                transform: scale(1.01);
+                border-color: #BFDBFE;
+                background-color: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+                transform: scale(1.02);
             }
             QPushButton {
-                font-size: 20px;
+                font-size: 22px;
                 font-weight: bold;
-                padding: 10px;
-                border-radius: 10px;
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
-                    stop:0 #60A5FA, stop:1 #2563EB);
+                padding: 12px;
+                border-radius: 15px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, 
+                    stop:0 #2563EB, stop:0.5 #3B82F6, stop:1 #60A5FA);
                 color: #FFFFFF;
                 border: none;
-                margin: 8px 15px;
-                transition: all 0.3s ease;
-                box-shadow: 0 3px 12px rgba(37, 99, 235, 0.3);
+                margin: 10px 20px;
+                transition: all 0.4s ease;
+                box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
             }
             QPushButton:hover {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
-                    stop:0 #93C5FD, stop:1 #3B82F6);
-                transform: translateY(-2px);
-                box-shadow: 0 5px 18px rgba(59, 130, 246, 0.4);
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, 
+                    stop:0 #3B82F6, stop:0.5 #60A5FA, stop:1 #93C5FD);
+                transform: translateY(-3px) scale(1.02);
+                box-shadow: 0 8px 24px rgba(96, 165, 250, 0.5);
             }
             QPushButton:pressed {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, 
-                    stop:0 #2563EB, stop:1 #1E3A8A);
-                transform: translateY(1px);
-                box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, 
+                    stop:0 #1E40AF, stop:0.5 #2563EB, stop:1 #3B82F6);
+                transform: translateY(2px) scale(0.98);
+                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
             }
             QLabel#temp_display {
-                font-size: 50px;
-                font-weight: 600;
-                font-family: 'Segoe UI', 'Helvetica', sans-serif;
-                color: #DBEAFE;
-                margin: 12px 0;
-                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+                font-size: 60px;
+                font-weight: 700;
+                font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+                color: #EFF6FF;
+                margin: 15px 0;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+                transition: all 0.4s ease;
+            }
+            QLabel#temp_display:hover {
+                transform: scale(1.03);
             }
             QLabel#icon_display {
-                font-size: 70px;
+                font-size: 80px;
                 font-family: "Segoe UI Emoji";
-                margin: 8px 0;
-                text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
-                transform: scale(1);
-                transition: transform 0.3s ease;
+                margin: 10px 0;
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+                transition: transform 0.4s ease, color 0.4s ease;
             }
             QLabel#icon_display:hover {
-                transform: scale(1.05);
+                transform: scale(1.1) rotate(5deg);
+                color: #DBEAFE;
             }
             QLabel#info_display {
-                font-size: 24px;
+                font-size: 26px;
                 color: #E0E7FF;
-                margin: 8px 15px;
-                padding: 8px;
-                background-color: rgba(255, 255, 255, 0.1);
-                border-radius: 8px;
-                box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-                transition: all 0.3s ease;
+                margin: 10px 20px;
+                padding: 10px;
+                background-color: rgba(255, 255, 255, 0.15);
+                border-radius: 12px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+                transition: all 0.4s ease;
+            }
+            QLabel#info_display:hover {
+                background-color: rgba(255, 255, 255, 0.25);
+                transform: scale(1.02);
             }
         """)
 
