@@ -2,7 +2,7 @@ import sys
 import requests
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QTextEdit, QDialog
 from PyQt5.QtCore import Qt
 from API import api_key_real
@@ -11,7 +11,7 @@ class HistoryWindow(QDialog):
     def __init__(self, weather_log, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Weather History")
-        self.setFixedSize(400, 450)
+        self.setFixedSize(450, 500)
         self.history_display = QTextEdit(self)
         self.history_display.setReadOnly(True)
         layout = QVBoxLayout()
@@ -20,11 +20,26 @@ class HistoryWindow(QDialog):
 
         if not weather_log.empty:
             history_text = ""
-            for i, row in weather_log.tail(20).iterrows():
+            last_entries = weather_log.tail(20).sort_values(by="Time", ascending=False)
+            temps = last_entries['Celsius'].values
+            avg_temp = np.round(np.mean(temps), 1)
+            history_text += f"📊 Average Temp: {avg_temp}°C\n------------------------------\n"
+
+            for i, row in last_entries.iterrows():
+                temp_icon = "🔥" if row['Celsius'] >= 35 else "❄️" if row['Celsius'] <= 5 else ""
+                entry_time = datetime.strptime(row['Time'], "%Y-%m-%d %H:%M:%S")
+                now = datetime.now()
+                if entry_time.date() == now.date():
+                    time_str = f"Today at {entry_time.strftime('%I:%M %p')}"
+                elif entry_time.date() == (now - timedelta(days=1)).date():
+                    time_str = f"Yesterday at {entry_time.strftime('%I:%M %p')}"
+                else:
+                    time_str = entry_time.strftime("%d %b %Y at %I:%M %p")
+
                 history_text += f"🌆 City: {row['City']}\n"
-                history_text += f"🌡 Temperature: {row['Celsius']}°C | {row['Fahrenheit']}°F\n"
+                history_text += f"🌡 Temperature: {row['Celsius']}°C | {row['Fahrenheit']}°F {temp_icon}\n"
                 history_text += f"☁ Weather: {row['Description'].capitalize()}\n"
-                history_text += f"🕒 Time: {row['Time']}\n"
+                history_text += f"🕒 Time: {time_str}\n"
                 history_text += "------------------------------\n"
             self.history_display.setText(history_text)
         else:
@@ -75,30 +90,10 @@ class SimpleWeather(QWidget):
         QLabel, QPushButton {
             font-family: 'Poppins', 'Segoe UI', Calibri, sans-serif;
         }
-        QLabel#city_text {
-            font-size: 28px;
-            font-weight: 700;
-            font-style: italic;
-            color: #E0E7FF;
-        }
-        QLineEdit {
-            font-size: 22px;
-            padding: 8px 10px;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.15);
-            color: #FFFFFF;
-        }
-        QPushButton {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 12px;
-            background: #2563EB;
-            color: #FFFFFF;
-        }
-        QPushButton:hover {
-            background: #3B82F6;
-        }
+        QLabel#city_text { font-size: 28px; font-weight: 700; font-style: italic; color: #E0E7FF; }
+        QLineEdit { font-size: 22px; padding: 8px 10px; border-radius: 10px; background-color: rgba(255,255,255,0.15); color: #FFFFFF; }
+        QPushButton { font-size: 18px; font-weight: bold; padding: 10px; border-radius: 12px; background: #2563EB; color: #FFFFFF; }
+        QPushButton:hover { background: #3B82F6; }
         QLabel#temp_display { font-size: 50px; font-weight: 600; color: #DBEAFE; }
         QLabel#icon_display { font-size: 70px; font-family: "Segoe UI Emoji"; }
         QLabel#info_display { font-size: 24px; color: #E0E7FF; }
