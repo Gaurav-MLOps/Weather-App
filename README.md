@@ -6,13 +6,6 @@ This project is part of my journey into building Python applications that combin
 
 ---
 
-## Features
-- Search weather by **city name**
-- Displays temperature in **Celsius & Fahrenheit**
-- Shows weather condition icons (☀️, 🌧, ❄️, 🌩,☁️, etc.)
-- Provides a short weather **description**
-- Simple and clean **PyQt5 GUI**
-
 ---
 
 ## Installation
