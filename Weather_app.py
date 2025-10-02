@@ -123,66 +123,151 @@ class SimpleWeather(QWidget):
         self.info_display.setWordWrap(True)
 
         self.setStyleSheet(
-            """
-            QWidget {
-                background: qlineargradient(
-                    x1:0, y1:0, x2:0, y2:1, 
-                    stop:0 #6B7280, stop:0.5 #3B82F6, stop:1 #1E3A8A
-                );
-                color: #F3F4F6;
-                border-radius: 15px;
-                padding: 10px;
-            }
+    """
+    QWidget {
+        background: qlineargradient(
+            x1:0, y1:0, x2:1, y2:1,
+            stop:0 #667eea, stop:0.5 #764ba2, stop:1 #f093fb
+        );
+        color: #FFFFFF;
+        border-radius: 20px;
+        font-family: 'Segoe UI', 'Poppins', sans-serif;
+    }
 
-            QLabel, QPushButton {
-                font-family: 'Poppins', 'Segoe UI', Calibri, sans-serif;
-            }
+    QLabel#city_text {
+        font-size: 24px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0.1);
+        padding: 8px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+    }
 
-            QLabel#city_text {
-                font-size: 28px;
-                font-weight: 700;
-                font-style: italic;
-                color: #E0E7FF;
-            }
+    QLineEdit {
+        font-size: 18px;
+        padding: 12px 16px;
+        border-radius: 15px;
+        background: rgba(255,255,255,0.15);
+        color: #FFFFFF;
+        border: 2px solid rgba(255,255,255,0.3);
+        selection-background-color: rgba(255,255,255,0.3);
+    }
 
-            QLineEdit {
-                font-size: 22px;
-                padding: 8px 10px;
-                border-radius: 10px;
-                background-color: rgba(255,255,255,0.15);
-                color: #FFFFFF;
-            }
+    QLineEdit:focus {
+        border: 2px solid rgba(255,255,255,0.6);
+        background: rgba(255,255,255,0.2);
+    }
 
-            QPushButton {
-                font-size: 18px;
-                font-weight: bold;
-                padding: 10px;
-                border-radius: 12px;
-                background: #2563EB;
-                color: #FFFFFF;
-            }
+    QLineEdit::placeholder {
+        color: rgba(255,255,255,0.6);
+        font-style: italic;
+    }
 
-            QPushButton:hover {
-                background: #3B82F6;
-            }
+    QPushButton {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 12px 20px;
+        border-radius: 15px;
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+            stop:0 #FF6B6B, stop:0.5 #FF8E53, stop:1 #FF6B6B);
+        color: #FFFFFF;
+        border: none;
+        margin: 5px;
+    }
 
-            QLabel#temp_display {
-                font-size: 50px;
-                font-weight: 600;
-                color: #DBEAFE;
-            }
+    QPushButton:hover {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+            stop:0 #FF8E53, stop:0.5 #FF6B6B, stop:1 #FF8E53);
+        transform: translateY(-1px);
+    }
 
-            QLabel#icon_display {
-                font-size: 70px;
-                font-family: "Segoe UI Emoji";
-            }
+    QPushButton:pressed {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+            stop:0 #E55A5A, stop:0.5 #E57A43, stop:1 #E55A5A);
+        padding: 13px 20px 11px 20px;
+    }
 
-            QLabel#info_display {
-                font-size: 24px;
-                color: #E0E7FF;
-            }
-            """
-        )
+    QPushButton[text="📜 Show History"] {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+            stop:0 #4ECDC4, stop:1 #44A08D);
+    }
+
+    QPushButton[text="📜 Show History"]:hover {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+            stop:0 #5EDDD4, stop:1 #54B09D);
+    }
+
+    QLabel#temp_display {
+        font-size: 56px;
+        font-weight: 700;
+        color: #FFFFFF;
+        background: rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 20px;
+        border: 2px solid rgba(255,255,255,0.2);
+        margin: 10px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    QLabel#icon_display {
+        font-size: 80px;
+        font-family: "Segoe UI Emoji", "Apple Color Emoji";
+        padding: 10px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        border: 3px solid rgba(255,255,255,0.3);
+        margin: 10px;
+        min-width: 120px;
+        min-height: 120px;
+    }
+
+    QLabel#info_display {
+        font-size: 20px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.95);
+        background: rgba(255,255,255,0.1);
+        padding: 15px 25px;
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.2);
+        margin: 10px;
+        backdrop-filter: blur(5px);
+    }
+
+    QVBoxLayout {
+        spacing: 15px;
+        margin: 20px;
+    }
+
+    QHBoxLayout {
+        spacing: 10px;
+        margin: 0px;
+    }
+
+    QScrollBar:vertical {
+        background: rgba(255,255,255,0.1);
+        width: 15px;
+        margin: 0px;
+        border-radius: 7px;
+    }
+
+    QScrollBar::handle:vertical {
+        background: rgba(255,255,255,0.3);
+        border-radius: 7px;
+        min-height: 20px;
+    }
+
+    QScrollBar::handle:vertical:hover {
+        background: rgba(255,255,255,0.5);
+    }
+
+    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+        border: none;
+        background: none;
+    }
+    """
+)
 
         self.city_text.setObjectName("city_text")
         self.temp_display.setObjectName("temp_display")
