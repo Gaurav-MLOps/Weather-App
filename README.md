@@ -21,5 +21,3 @@ Clone the repository and install dependencies:
 git clone https://github.com/Gaurav-MLOps/Weather-App.git
 cd Weather-App
 pip install pyqt5 requests numpy
-
-<!-- Testing my first pull request! -->
