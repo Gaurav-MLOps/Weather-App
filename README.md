@@ -1,5 +1,5 @@
 # Simple Weather App (PyQt5)
-(Weather_app_ss.png)
+Weather_app_ss.png
 A simple Python GUI application that checks the current weather of any city using the **OpenWeatherMap API**.  
 Built with **PyQt5** for the interface, **Requests** for API calls, **NumPy** for temperature conversion, and **Pandas** for weather history management.  
 This project is part of my journey into building Python applications that combine **APIs**, **GUI development**, and **data handling**.
